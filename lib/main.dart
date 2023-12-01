@@ -1,14 +1,13 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'components/tasks.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -26,14 +25,14 @@ class _MyAppState extends State<MyApp> {
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Tarefas'),
-          leading: Icon(Icons.add_task),
+          title: const Text('Tarefas'),
+          leading: const Icon(Icons.add_task),
         ),
         body: AnimatedOpacity(
           opacity: opacidade ? 1.0 : 0.0,
-          duration: Duration(milliseconds: 500),
+          duration: const Duration(milliseconds: 500),
           child: ListView(
-            children: [
+            children: const [
               Task('Aprender Flutter no intervalo do curso!',
                   'assets/images/flutter.png', 2),
               Task('Andar de Bike', 'assets/images/bike.webp', 5),
@@ -49,7 +48,7 @@ class _MyAppState extends State<MyApp> {
               opacidade = !opacidade;
             });
           },
-          child: Icon(Icons.remove_red_eye),
+          child: const Icon(Icons.remove_red_eye),
         ),
       ),
     );
