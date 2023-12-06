@@ -18,11 +18,11 @@ class _TaskState extends State<Task> {
 
   Color getTaskColor(int nivel, int dificuldade) {
     if (nivel >= 10) {
-      return Colors.green; // Mudar para a cor desejada para o nível 10
+      return Colors.green;
     } else if (nivel >= dificuldade) {
-      return Colors.yellow; // Mudar para a cor desejada para maestria máxima
+      return Colors.yellow;
     } else {
-      return Colors.blue; // Cor padrão da tarefa
+      return Colors.blue;
     }
   }
 
