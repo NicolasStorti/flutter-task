@@ -46,7 +46,7 @@ class _FormScreenState extends State<FormScreen> {
                       },
                       controller: nameController,
                       textAlign: TextAlign.center,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'Nome',
                         fillColor: Colors.white70,
@@ -68,7 +68,7 @@ class _FormScreenState extends State<FormScreen> {
                       keyboardType: TextInputType.number,
                       controller: difficultyController,
                       textAlign: TextAlign.center,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'Dificuldade',
                         fillColor: Colors.white70,
@@ -91,7 +91,7 @@ class _FormScreenState extends State<FormScreen> {
                       },
                       controller: imageController,
                       textAlign: TextAlign.center,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'Imagem',
                         fillColor: Colors.white70,
@@ -126,7 +126,7 @@ class _FormScreenState extends State<FormScreen> {
                         print(imageController.text);
                       }
                     },
-                    child: Text('Adicionar!'),
+                    child: const Text('Adicionar!'),
                   )
                 ],
               ),
