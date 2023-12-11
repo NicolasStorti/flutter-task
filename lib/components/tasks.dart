@@ -35,7 +35,7 @@ class _TaskState extends State<Task> {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4),
-              color: getTaskColor(nivel, widget.dificuldade), // Usando a função getTaskColor
+              color: getTaskColor(nivel, widget.dificuldade),
             ),
             height: 140,
           ),
