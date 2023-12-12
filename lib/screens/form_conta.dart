@@ -130,7 +130,7 @@ class _NovaContaState extends State<NovaConta> {
                         print(emailController.text);
 
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Printando nova Conta'),
+                          const SnackBar(content: Text('Printando nova Conta'),
                           ),
                         );
                       }
