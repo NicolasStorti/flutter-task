@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/components/dificulty.dart';
 
+import '../data/task_dao.dart';
+
 class Task extends StatefulWidget {
   final String nome;
   final String foto;
@@ -92,6 +94,9 @@ class _TaskState extends State<Task> {
                       height: 52,
                       width: 82,
                       child: ElevatedButton(
+                        onLongPress: (){
+                          TaskDao().delete(widget.nome);
+                        },
                         onPressed: () {
                           setState(() {
                             widget.nivel++;
