@@ -99,7 +99,7 @@ class _TaskState extends State<Task> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: Text("Confirmação de Exclusão"),
+                                title: Text("Deletar"),
                                 content: Text("Tem certeza que deseja excluir?"),
                                 actions: [
                                   TextButton(
