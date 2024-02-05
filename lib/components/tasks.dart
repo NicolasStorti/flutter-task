@@ -112,9 +112,16 @@ class _TaskState extends State<Task> {
                                     onPressed: () {
                                       TaskDao().delete(widget.nome);
                                       Navigator.of(context).pop();
+
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          content: Text('Tarefa excluída com sucesso!'),
+                                        ),
+                                      );
                                     },
                                     child: Text("Confirmar"),
                                   ),
+
                                 ],
                               );
                             },
