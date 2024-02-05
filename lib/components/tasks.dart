@@ -95,7 +95,6 @@ class _TaskState extends State<Task> {
                       width: 82,
                       child: ElevatedButton(
                         onLongPress: () {
-                          // Exibir AlertDialog para confirmar a exclusão
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
@@ -105,14 +104,14 @@ class _TaskState extends State<Task> {
                                 actions: [
                                   TextButton(
                                     onPressed: () {
-                                      Navigator.of(context).pop(); // Fechar o AlertDialog
+                                      Navigator.of(context).pop();
                                     },
                                     child: Text("Cancelar"),
                                   ),
                                   TextButton(
                                     onPressed: () {
                                       TaskDao().delete(widget.nome);
-                                      Navigator.of(context).pop(); // Fechar o AlertDialog
+                                      Navigator.of(context).pop();
                                     },
                                     child: Text("Confirmar"),
                                   ),
