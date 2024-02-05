@@ -94,8 +94,32 @@ class _TaskState extends State<Task> {
                       height: 52,
                       width: 82,
                       child: ElevatedButton(
-                        onLongPress: (){
-                          TaskDao().delete(widget.nome);
+                        onLongPress: () {
+                          // Exibir AlertDialog para confirmar a exclusão
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text("Confirmação de Exclusão"),
+                                content: Text("Tem certeza que deseja excluir?"),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop(); // Fechar o AlertDialog
+                                    },
+                                    child: Text("Cancelar"),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      TaskDao().delete(widget.nome);
+                                      Navigator.of(context).pop(); // Fechar o AlertDialog
+                                    },
+                                    child: Text("Confirmar"),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                         },
                         onPressed: () {
                           setState(() {
@@ -111,11 +135,12 @@ class _TaskState extends State<Task> {
                             Text(
                               'Lvl Up',
                               style: TextStyle(fontSize: 12),
-                            )
+                            ),
                           ],
                         ),
                       ),
                     ),
+
                   ],
                 ),
               ),
