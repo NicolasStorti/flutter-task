@@ -96,4 +96,32 @@ class TaskDao {
     );
   }
 
+  Future<int> update(Task tarefa) async {
+    try {
+      final Database bancoDeDados = await getDatabase();
+      var itemExists = await find(tarefa.nome);
+
+      if (itemExists.isEmpty) {
+        print('Tarefa não encontrada para atualizar');
+        return 0;
+      } else {
+        Map<String, dynamic> taskMap = toMap(tarefa);
+
+        int result = await bancoDeDados.update(
+          _tableName,
+          taskMap,
+          where: '$_name = ?',
+          whereArgs: [tarefa.nome],
+        );
+
+        print('Tarefa atualizada: ${tarefa.nome}');
+        return result;
+      }
+    } catch (e) {
+      print('Erro ao atualizar a tarefa: $e');
+      return 0;
+    }
+  }
+
+
 }

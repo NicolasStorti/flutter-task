@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:task_manager/components/dificulty.dart';
 
 import '../data/task_dao.dart';
+import '../screens/edit_taskScreen.dart';
 
 class Task extends StatefulWidget {
   final String nome;
@@ -79,14 +80,25 @@ class _TaskState extends State<Task> {
                       children: [
                         Container(
                           width: 200,
-                          child: Text(
-                            widget.nome,
-                            style: const TextStyle(
-                              fontSize: 24,
-                              overflow: TextOverflow.ellipsis,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => EditTaskScreen(task: widget),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              widget.nome,
+                              style: const TextStyle(
+                                fontSize: 24,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
                           ),
                         ),
+
                         Difficulty(widget.dificuldade),
                       ],
                     ),
