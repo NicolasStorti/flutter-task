@@ -46,93 +46,134 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextFormField(
-                validator: (value) {
-                  if (valueValidator(value)) {
-                    return 'Insira o nome da Tarefa';
-                  }
-                  return null;
-                },
-                controller: nameController,
-                decoration: InputDecoration(labelText: 'Nome da Tarefa'),
-              ),
-              TextFormField(
-                validator: (value) {
-                  if (difficultyValidator(value)) {
-                    return 'Insira uma Dificuldade entre 1 e 5';
-                  }
-                  return null;
-                },
-                keyboardType: TextInputType.number,
-                controller: difficultyController,
-                decoration: InputDecoration(labelText: 'Dificuldade'),
-              ),
-              TextFormField(
-                validator: (value) {
-                  if (valueValidator(value)) {
-                    return 'Insira uma URL de Imagem!';
-                  }
-                  return null;
-                },
-                keyboardType: TextInputType.url,
-                onChanged: (text) {
-                  setState(() {});
-                },
-                controller: imageController,
-                decoration: InputDecoration(labelText: 'URL da Imagem'),
-              ),
-              Container(
-                height: 100,
-                width: 80,
+          child: Center(
+            child: SingleChildScrollView(
+              child: Container(
+                height: 650,
+                width: 400,
                 decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(width: 2, color: Colors.blue),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    imageController.text,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Image.asset('assets/images/nophoto.png');
-                    },
-                    fit: BoxFit.cover,
-                  ),
+                    color: Colors.black12,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(width: 3)),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        validator: (value) {
+                          if (valueValidator(value)) {
+                            return 'Insira o nome da Tarefa';
+                          }
+                          return null;
+                        },
+                        controller: nameController,
+                        textAlign: TextAlign.center,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Nome da Tarefa',
+                          fillColor: Colors.white70,
+                          filled: true,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        validator: (value) {
+                          if (difficultyValidator(value)) {
+                            return 'Insira uma Dificuldade entre 1 e 5';
+                          }
+                          return null;
+                        },
+                        keyboardType: TextInputType.number,
+                        controller: difficultyController,
+                        textAlign: TextAlign.center,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Dificuldade',
+                          fillColor: Colors.white70,
+                          filled: true,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        validator: (value) {
+                          if (valueValidator(value)) {
+                            return 'Insira uma URL de Imagem!';
+                          }
+                          return null;
+                        },
+                        keyboardType: TextInputType.url,
+                        onChanged: (text) {
+                          setState(() {});
+                        },
+                        controller: imageController,
+                        textAlign: TextAlign.center,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'URL da Imagem',
+                          fillColor: Colors.white70,
+                          filled: true,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 100,
+                      width: 80,
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(width: 2, color: Colors.blue),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.network(
+                          imageController.text,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Image.asset('assets/images/nophoto.png');
+                          },
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          Task updatedTask = Task(
+                            nameController.text,
+                            imageController.text,
+                            int.parse(difficultyController.text),
+                          );
+                          TaskDao().update(updatedTask).then((rowsAffected) {
+                            if (rowsAffected > 0) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content:
+                                      Text('Tarefa atualizada com sucesso!'),
+                                ),
+                              );
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content:
+                                      Text('Você não pode alterar o nome!'),
+                                ),
+                              );
+                            }
+                          });
+                          Navigator.pop(context);
+                        }
+                      },
+                      child: Text('Salvar Alterações'),
+                    ),
+                  ],
                 ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    Task updatedTask = Task(
-                      nameController.text,
-                      imageController.text,
-                      int.parse(difficultyController.text),
-                    );
-                    TaskDao().update(updatedTask).then((rowsAffected) {
-                      if (rowsAffected > 0) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Tarefa atualizada com sucesso!'),
-                          ),
-                        );
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Você não pode alterar o nome!'),
-                          ),
-                        );
-                      }
-                    });
-                    Navigator.pop(context);
-                  }
-                },
-                child: Text('Salvar Alterações'),
-              ),
-
-            ],
+            ),
           ),
         ),
       ),
