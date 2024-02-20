@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/components/tasks.dart';
 import 'package:task_manager/data/task_dao.dart';
-import 'package:task_manager/data/task_inherited.dart';
 
 class FormScreen extends StatefulWidget {
   const FormScreen({Key? key, required this.taskContext}) : super(key: key);
@@ -39,6 +38,10 @@ class _FormScreenState extends State<FormScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Nova Tarefa'),
+          leading: IconButton(
+            onPressed: ()=> onButtonVoltarClicked(context),
+            icon: Icon(Icons.arrow_back),
+          ),
         ),
         body: Center(
           child: SingleChildScrollView(
@@ -155,4 +158,7 @@ class _FormScreenState extends State<FormScreen> {
       ),
     );
   }
+}
+void onButtonVoltarClicked (BuildContext context){
+  Navigator.of(context).pushReplacementNamed("/home");
 }

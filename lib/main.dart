@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager/data/task_inherited.dart';
 import 'package:task_manager/screens/form_screen.dart';
 import 'package:task_manager/screens/tela_inicial.dart';
 
@@ -29,7 +28,6 @@ class _MyAppState extends State<MyApp> {
       routes: {
         "/home":(context)=> InitialScreen(),
         "/newTask":(context)=> FormScreen(taskContext: context),
-
       },
     );
   }

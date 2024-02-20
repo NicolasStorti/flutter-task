@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/components/tasks.dart';
 import 'package:task_manager/data/task_dao.dart';
-import 'package:task_manager/screens/form_screen.dart';
 
 class InitialScreen extends StatefulWidget {
   const InitialScreen({Key? key}) : super(key: key);
@@ -16,10 +15,20 @@ class _InitialScreenState extends State<InitialScreen> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(onPressed: (){setState(() {});}, icon: Icon(Icons.refresh)),
+          IconButton(
+            onPressed: () {
+              setState(() {});
+            },
+            icon: Icon(Icons.refresh),
+          ),
         ],
         title: const Text('Tarefas'),
-        leading: const Icon(Icons.add_task),
+        leading: IconButton( // Altere o ícone de adicionar tarefa para um botão de navegação
+          onPressed: () {
+            onButtonAddTaskClicked(context); // Chamada do método para navegar para a tela de adicionar tarefa
+          },
+          icon: Icon(Icons.add_task),
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.only(top: 8, bottom: 70),
@@ -29,44 +38,26 @@ class _InitialScreenState extends State<InitialScreen> {
             List<Task>? items = snapshot.data as List<Task>?;
             switch (snapshot.connectionState) {
               case ConnectionState.none:
-                return Center(
-                  child: Column(
-                    children: [
-                      CircularProgressIndicator(),
-                      Text('Cerregando'),
-                    ],
-                  ),
-                );
-                break;
               case ConnectionState.waiting:
-                return Center(
-                  child: Column(
-                    children: [
-                      CircularProgressIndicator(),
-                      Text('Cerregando'),
-                    ],
-                  ),
-                );
-                break;
               case ConnectionState.active:
                 return Center(
                   child: Column(
                     children: [
                       CircularProgressIndicator(),
-                      Text('Cerregando'),
+                      Text('Carregando'),
                     ],
                   ),
                 );
-                break;
               case ConnectionState.done:
                 if (snapshot.hasData && items != null) {
                   if (items.isNotEmpty) {
                     return ListView.builder(
-                        itemCount: items.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          final Task tarefa = items[index];
-                          return tarefa;
-                        });
+                      itemCount: items.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final Task tarefa = items[index];
+                        return tarefa;
+                      },
+                    );
                   }
                   return Center(
                     child: Column(
@@ -81,27 +72,20 @@ class _InitialScreenState extends State<InitialScreen> {
                   );
                 }
                 return Text('Erro ao carregar Tarefas');
-                break;
             }
           },
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (contextNew) => FormScreen(
-                taskContext: context,
-              ),
-            ),
-          ).then((value) => setState((){
-            print('Recarregando a tela  inicial');
-          })
-          );
+          onButtonAddTaskClicked(context);
         },
         child: const Icon(Icons.add),
       ),
     );
   }
+}
+
+void onButtonAddTaskClicked(BuildContext context) {
+  Navigator.of(context).pushReplacementNamed("/newTask");
 }
