@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/data/task_inherited.dart';
+import 'package:task_manager/screens/form_screen.dart';
 import 'package:task_manager/screens/tela_inicial.dart';
 
 void main() {
@@ -19,11 +20,17 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter - Gerenciador de Tarefas',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: TaskInherited(child: const InitialScreen(),),
+      //home: TaskInherited(child: const InitialScreen(),),
+      initialRoute: "/home",
+      routes: {
+        "/home":(context)=> InitialScreen(),
+        "/newTask":(context)=> FormScreen(taskContext: context),
+
+      },
     );
   }
 }

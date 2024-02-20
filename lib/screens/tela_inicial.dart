@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/components/tasks.dart';
 import 'package:task_manager/data/task_dao.dart';
-import 'package:task_manager/data/task_inherited.dart';
 import 'package:task_manager/screens/form_screen.dart';
 
 class InitialScreen extends StatefulWidget {
@@ -84,8 +83,6 @@ class _InitialScreenState extends State<InitialScreen> {
                 return Text('Erro ao carregar Tarefas');
                 break;
             }
-            return Text('Erro desconhecido');
-            //return Container();
           },
         ),
       ),
